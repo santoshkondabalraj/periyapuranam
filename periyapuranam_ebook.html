@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Periya Puranam — திருத்தொண்டர் புராணம்</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* === RESET === */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* === TOKENS — CHOLA DYNASTY === */
+:root{
+  --parchment:#F5E4B2;
+  --parchment-l:#FBF2D8;
+  --parchment-d:#E0C878;
+  --ink:#1C0800;
+  --ink-l:#3A200A;
+  --crimson:#8B1A1A;
+  --crimson-d:#5A0A0A;
+  --gold:#C5922A;
+  --gold-l:#DEB840;
+  --gold-d:#8B6610;
+  --saffron:#E07B20;
+  --stone:#7A6A5A;
+  --stone-l:#A09080;
+  --lotus:#C25A7A;
+}
+
+/* === BODY === */
+body{
+  background:#1E0A02;
+  background-image:repeating-linear-gradient(45deg,transparent 0,transparent 12px,rgba(197,146,42,.03) 12px,rgba(197,146,42,.03) 24px);
+  font-family:'EB Garamond',Georgia,serif;
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+}
+
+/* === SIDEBAR === */
+#sidebar{
+  width:272px;min-width:272px;
+  background:linear-gradient(180deg,#3D1C08 0%,#1E0A02 100%);
+  border-right:2px solid var(--gold-d);
+  position:fixed;top:0;left:0;bottom:0;
+  overflow-y:auto;z-index:100;
+  transition:transform .3s;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold-d) transparent;
+}
+#sidebar::-webkit-scrollbar{width:4px}
+#sidebar::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
+
+#sb-head{
+  padding:22px 18px;text-align:center;
+  border-bottom:1px solid rgba(197,146,42,.3);
+  background:linear-gradient(180deg,#5A2C0A,#3D1C08);
+}
+#sb-head .om{font-size:2.2rem;color:var(--gold-l);display:block;margin-bottom:8px;text-shadow:0 0 16px rgba(222,184,64,.6)}
+#sb-head h2{font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:.78rem;line-height:1.5;letter-spacing:.06em}
+
+#toc-nav{padding:12px 0}
+.toc-sect{
+  padding:10px 18px 4px;
+  font-family:'Cinzel',serif;font-size:.6rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.65;
+  border-top:1px solid rgba(197,146,42,.15);
+  margin-top:6px;
+}
+#toc-nav a{
+  display:block;padding:6px 18px 6px 26px;
+  color:var(--parchment-d);text-decoration:none;
+  font-size:.78rem;line-height:1.35;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+#toc-nav a:hover{background:rgba(197,146,42,.08);border-left-color:var(--gold);color:var(--gold-l)}
+#toc-nav a.active{background:rgba(197,146,42,.12);border-left-color:var(--gold-l);color:var(--gold-l);font-style:italic}
+
+/* === MAIN === */
+#main{
+  margin-left:272px;flex:1;
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:36px 28px 60px;
+  min-height:100vh;
+}
+
+/* === PAGE CONTAINER === */
+.page{display:none;width:100%;max-width:740px;animation:fadeIn .4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* === BOOK PAGE === */
+.book-page{
+  background:var(--parchment-l);
+  min-height:78vh;
+  padding:48px 52px;
+  position:relative;
+  box-shadow:4px 8px 24px rgba(0,0,0,.5),0 0 0 1px rgba(197,146,42,.2);
+  border:3px solid var(--crimson);
+  outline:2px solid var(--gold);
+  outline-offset:-10px;
+  background-image:
+    radial-gradient(ellipse at 20% 0%,rgba(245,228,178,.9) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 100%,rgba(224,200,120,.6) 0%,transparent 50%),
+    linear-gradient(160deg,#FBF2D8 0%,#F5E4B2 45%,#EDD498 100%);
+}
+
+/* corner diamonds */
+.book-page::before,.book-page::after{
+  content:'◆';position:absolute;font-size:.9rem;color:var(--gold);
+}
+.book-page::before{top:12px;left:12px}
+.book-page::after{bottom:12px;right:12px}
+
+/* inner border line */
+.book-page .inner-border{
+  position:absolute;inset:12px;
+  border:1px solid rgba(197,146,42,.35);
+  pointer-events:none;
+}
+
+/* === COVER === */
+#page-0 .book-page{
+  background:linear-gradient(180deg,#100400 0%,#3D1C08 25%,#6B3010 55%,#3D1C08 80%,#100400 100%);
+  border:5px solid var(--gold);
+  outline:2px solid var(--crimson);outline-offset:-16px;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;min-height:88vh;
+}
+#page-0 .book-page::before,#page-0 .book-page::after{color:var(--gold-l);font-size:1.1rem}
+
+.cover-rule{width:68%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-l),var(--gold),transparent);margin:0 auto}
+.cover-om{font-size:3.8rem;color:var(--gold-l);text-shadow:0 0 28px rgba(222,184,64,.8);margin:0 0 14px}
+.cover-title-ta{font-family:'Cinzel Decorative',serif;font-size:.95rem;color:#EDD9A0;letter-spacing:.18em;margin-bottom:6px}
+.cover-title{font-family:'Cinzel Decorative',serif;font-size:2.6rem;font-weight:900;color:var(--gold-l);text-shadow:2px 2px 10px rgba(0,0,0,.7);line-height:1.15;margin:6px 0}
+.cover-sub{font-family:'Cinzel',serif;font-size:1rem;color:#E8D490;letter-spacing:.06em;line-height:1.7;margin:12px 0 20px}
+.cover-lamp{font-size:2.8rem;filter:drop-shadow(0 0 12px rgba(255,200,50,.7));margin:8px 0 18px;display:block}
+.cover-author-line{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;color:#C8B480;margin-bottom:4px}
+.cover-author{font-family:'Cinzel',serif;font-size:1.05rem;color:#EDD9A0;letter-spacing:.12em;margin-bottom:6px}
+.cover-thirumurai{font-family:'Cinzel',serif;font-size:.7rem;color:#A09070;letter-spacing:.18em;text-transform:uppercase}
+.cover-dots{font-size:1.2rem;color:var(--gold);letter-spacing:.6rem;margin:18px 0}
+.cover-btn{
+  padding:11px 32px;margin-top:22px;
+  background:linear-gradient(135deg,var(--gold-d),var(--gold));
+  color:var(--ink);border:none;border-radius:1px;
+  font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.14em;
+  cursor:pointer;text-transform:uppercase;
+  box-shadow:0 4px 14px rgba(0,0,0,.5);transition:all .2s;
+}
+.cover-btn:hover{background:linear-gradient(135deg,var(--gold),var(--gold-l));transform:translateY(-2px)}
+
+/* === CHAPTER TYPOGRAPHY === */
+.ch-ornament{text-align:center;font-size:1.4rem;color:var(--gold);letter-spacing:.5rem;margin-bottom:22px}
+.ch-num{
+  font-family:'Cinzel Decorative',serif;font-size:.78rem;
+  letter-spacing:.22em;color:var(--stone);text-transform:uppercase;
+  text-align:center;display:block;margin-bottom:4px;
+}
+.ch-title{
+  font-family:'Cinzel Decorative',serif;font-size:1.75rem;font-weight:700;
+  color:var(--crimson);text-align:center;line-height:1.25;margin-bottom:4px;
+}
+.ch-subtitle{
+  font-family:'Cinzel',serif;font-size:.9rem;color:var(--gold-d);
+  text-align:center;font-style:italic;margin-bottom:20px;letter-spacing:.04em;
+}
+.ch-rule{
+  display:flex;align-items:center;gap:10px;margin:16px 0 20px;
+}
+.ch-rule::before,.ch-rule::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--parchment-d))}
+.ch-rule::after{background:linear-gradient(90deg,var(--parchment-d),transparent)}
+.ch-rule-icon{color:var(--gold);font-size:.9rem;flex-shrink:0}
+
+.sarukkam-badge{
+  display:block;width:fit-content;margin:0 auto 20px;
+  background:linear-gradient(135deg,var(--crimson-d),var(--crimson));
+  color:var(--parchment-l);
+  font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;
+  padding:4px 14px;border:1px solid var(--gold-d);
+}
+
+.ch-body{font-size:1.05rem;line-height:1.88;color:var(--ink-l);text-align:justify;hyphens:auto}
+.ch-body p{margin-bottom:1.15em;text-indent:2em}
+.ch-body p:first-child{text-indent:0}
+
+.dropcap::first-letter{
+  font-family:'Cinzel Decorative',serif;font-size:3.4em;
+  line-height:.82;float:left;margin:0 8px 0 0;
+  color:var(--crimson);text-shadow:2px 2px 5px rgba(139,26,26,.25);
+}
+
+.verse-box{
+  border-left:3px solid var(--gold);border-right:3px solid var(--gold);
+  padding:14px 22px;margin:18px 0;
+  background:rgba(197,146,42,.06);
+  font-style:italic;color:var(--crimson-d);text-align:center;
+  font-size:.98rem;position:relative;line-height:1.7;text-indent:0 !important;
+}
+
+.virtue-tags{text-align:center;margin:14px 0}
+.virtue{
+  display:inline-block;margin:3px;padding:3px 11px;
+  border:1px solid var(--gold-d);
+  background:rgba(197,146,42,.09);
+  color:var(--gold-d);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.08em;
+}
+
+/* === TOC PAGE === */
+.toc-page-title{font-family:'Cinzel Decorative',serif;font-size:1.8rem;color:var(--crimson);text-align:center;margin-bottom:6px}
+.toc-page-sub{font-family:'Cinzel',serif;font-size:.82rem;color:var(--stone);text-align:center;letter-spacing:.12em;margin-bottom:24px}
+.toc-section-head{
+  font-family:'Cinzel',serif;font-size:.72rem;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.16em;
+  border-bottom:1px solid var(--parchment-d);padding-bottom:5px;margin:16px 0 8px;
+}
+.toc-row{
+  display:flex;align-items:baseline;padding:4px 0;cursor:pointer;
+  transition:color .2s;
+}
+.toc-row:hover .toc-row-name{color:var(--crimson)}
+.toc-row-n{font-family:'Cinzel',serif;font-size:.72rem;color:var(--stone-l);min-width:28px}
+.toc-row-name{font-size:.92rem;color:var(--ink-l);flex:1}
+.toc-row-dots{flex:1;border-bottom:1px dotted var(--parchment-d);margin:0 8px;min-width:16px}
+.toc-row-pg{font-family:'Cinzel',serif;font-size:.72rem;color:var(--stone)}
+
+/* === SARUKKAM PAGE === */
+.sarukkam-page .book-page{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  min-height:72vh;text-align:center;
+}
+.sarukkam-bg-num{
+  font-family:'Cinzel Decorative',serif;
+  font-size:8rem;color:rgba(197,146,42,.1);
+  line-height:1;position:absolute;user-select:none;letter-spacing:-.02em;
+}
+.sarukkam-label{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone-l);margin-bottom:8px}
+.sarukkam-name{font-family:'Cinzel Decorative',serif;font-size:1.9rem;color:var(--crimson);margin:6px 0;position:relative}
+.sarukkam-desc{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:var(--stone);margin-top:12px;max-width:380px;line-height:1.65;position:relative}
+
+/* === NAV BAR === */
+.nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding:0 2px}
+.nav-btn{
+  padding:9px 22px;
+  background:linear-gradient(135deg,var(--crimson-d),var(--crimson));
+  color:var(--parchment-l);border:1px solid var(--gold-d);
+  font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.1em;
+  cursor:pointer;text-transform:uppercase;transition:all .2s;
+}
+.nav-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--crimson),var(--saffron));transform:translateY(-1px)}
+.nav-btn:disabled{opacity:.35;cursor:default}
+.nav-info{font-family:'Cinzel',serif;font-size:.72rem;color:var(--stone-l);letter-spacing:.08em;text-align:center}
+
+/* === PROGRESS BAR === */
+#pgbar{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(197,146,42,.15);z-index:200}
+#pgfill{height:100%;background:linear-gradient(90deg,var(--crimson),var(--gold));transition:width .35s ease;width:4%}
+
+/* === MOBILE TOGGLE === */
+#mb-toggle{
+  display:none;position:fixed;top:14px;left:14px;
+  background:var(--crimson);color:var(--gold);
+  border:1px solid var(--gold-d);padding:7px 11px;
+  font-size:1.1rem;cursor:pointer;z-index:200;
+}
+
+/* === SCROLL TOP === */
+#stbtn{
+  position:fixed;bottom:20px;right:20px;
+  background:var(--crimson);color:var(--gold);
+  border:1px solid var(--gold-d);width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;opacity:0;
+  transition:opacity .3s;z-index:150;
+}
+#stbtn.vis{opacity:1}
+
+/* === COLOPHON === */
+.colophon-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:72vh;text-align:center}
+
+/* === RESPONSIVE === */
+@media(max-width:900px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0;padding:20px 14px 60px}
+  #mb-toggle{display:flex}
+  .book-page{padding:30px 22px}
+  .ch-title{font-size:1.4rem}
+  .cover-title{font-size:1.9rem}
+}
+
+/* === PRINT === */
+@media print{
+  #sidebar,#mb-toggle,.nav-bar,#pgbar,#stbtn{display:none}
+  #main{margin:0;padding:0}
+  .page{display:block!important;page-break-after:always}
+  .book-page{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<div id="pgbar"><div id="pgfill"></div></div>
+<button id="mb-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div id="sb-head">
+    <span class="om">ॐ</span>
+    <h2>Periya Puranam<br><span style="font-size:.9em;opacity:.8">திருத்தொண்டர் புராணம்</span></h2>
+  </div>
+  <nav id="toc-nav">
+    <div class="toc-sect">Frontmatter</div>
+    <a href="#" onclick="nav(0);return false">Cover</a>
+    <a href="#" onclick="nav(1);return false">Introduction</a>
+    <a href="#" onclick="nav(2);return false">Index of Contents</a>
+    <a href="#" onclick="nav(3);return false">The Thirteen Sarukkams</a>
+    <div class="toc-sect">The Saints</div>
+    <a href="#" onclick="nav(4);return false">1 · Sundaramurthi Nayanar</a>
+    <a href="#" onclick="nav(5);return false">2 · Tiru Neelakanta Nayanar</a>
+    <a href="#" onclick="nav(6);return false">3 · Iyarpahai Nayanar</a>
+    <a href="#" onclick="nav(7);return false">4 · Ilayankudi Mara Nayanar</a>
+    <a href="#" onclick="nav(8);return false">5 · Meiporul Nayanar</a>
+    <a href="#" onclick="nav(9);return false">6 · Viralminda Nayanar</a>
+    <a href="#" onclick="nav(10);return false">7 · Amaraneedi Nayanar</a>
+    <a href="#" onclick="nav(11);return false">8 · Eripatha Nayanar</a>
+    <a href="#" onclick="nav(12);return false">9 · Enadinatha Nayanar</a>
+    <a href="#" onclick="nav(13);return false">10 · Kannappa Nayanar</a>
+    <a href="#" onclick="nav(14);return false">11 · Kungiliya Kalaya Nayanar</a>
+    <a href="#" onclick="nav(15);return false">12 · Manakanchara Nayanar</a>
+    <a href="#" onclick="nav(16);return false">13 · Arivattaya Nayanar</a>
+    <a href="#" onclick="nav(17);return false">14 · Anaya Nayanar</a>
+    <a href="#" onclick="nav(18);return false">15 · Murthi Nayanar</a>
+    <a href="#" onclick="nav(19);return false">16 · Muruga Nayanar</a>
+    <a href="#" onclick="nav(20);return false">17 · Rudra Pasupathi Nayanar</a>
+    <a href="#" onclick="nav(21);return false">18 · Tiru Nalai Povar Nayanar</a>
+    <a href="#" onclick="nav(22);return false">19 · Tiru Kurippu Thonda Nayanar</a>
+    <div class="toc-sect">Appendix</div>
+    <a href="#" onclick="nav(23);return false">Gallery of All 63 Saints</a>
+    <a href="#" onclick="nav(24);return false">Colophon</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- PAGE 0: COVER -->
+<div class="page active" id="page-0">
+  <div class="book-page">
+    <div class="inner-border"></div>
+    <span class="cover-om">ॐ</span>
+    <div class="cover-rule"></div>
+    <div style="margin:20px 0 14px">
+      <div class="cover-title-ta">திருத்தொண்டர் புராணம்</div>
+      <div class="cover-title">Periya<br>Puranam</div>
+    </div>
+    <div class="cover-sub">
+      The Sacred Lives of the<br>
+      <span style="font-size:1.15em;color:var(--gold-l);font-family:'Cinzel',serif;letter-spacing:.08em">63 Great Servants of Lord Shiva</span>
+    </div>
+    <span class="cover-lamp">🪔</span>
+    <div class="cover-dots">✦ ✦ ✦</div>
+    <div class="cover-author-line">Composed by</div>
+    <div class="cover-author">SEKKIZHAR</div>
+    <div class="cover-thirumurai">The Twelfth Thirumurai · Chola Dynasty · 12th Century CE</div>
+    <div class="cover-rule" style="margin:22px auto"></div>
+    <button class="cover-btn" onclick="nav(1)">Begin Reading ›</button>
+  </div>
+  <div class="nav-bar">
+    <button class="nav-btn" disabled>‹ Previous</button>
+    <span class="nav-info">Page 1 of 25</span>
+    <button class="nav-btn" onclick="nav(1)">Next ›</button>
+  </div>
+</div>
+
+<!-- PAGE 1: INTRODUCTION -->
+<div class="page" id="page-1">
+  <div class="book-page">
+    <div class="inner-border"></div>
+    <div class="ch-ornament">✦ ❀ ✦</div>
+    <span class="ch-num">Introduction</span>
+    <h1 class="ch-title">Periya Puranam</h1>
+    <p class="ch-subtitle">The Greatest Epic of Saivism</p>
+    <div class="ch-rule"><span class="ch-rule-icon">❀</span></div>
+    <div class="ch-body">
+      <p class="dropcap">The <em>Periya Puranam</em> (பெரிய புராணம்), also known as <em>Thiruthondar Puranam</em>, stands as the crowning jewel of Tamil Shaiva devotional literature. Composed by the poet-saint <strong>Sekkizhar</strong> at the behest of Chola king <strong>Kulothungga II</strong> in the 12th century CE, it narrates the sacred lives of the <strong>Sixty-Three Nayanmars</strong> — the great devotees of Lord Shiva who attained liberation through pure, uncompromising devotion.</p>
+      <p>The work is enshrined as the <strong>Twelfth Thirumurai</strong>, the final and crowning volume of the Shaiva Tamil canon. The Thirumurai comprises twelve volumes of hymns and devotional poetry; the first seven contain the <em>Tevaram</em> hymns of the three principal poet-saints: Thirugnana Sambandar, Appar, and Sundaramurthi Nayanar.</p>
+      <p class="verse-box">"The Periya Puranam does not merely describe devotion — it <em>is</em> devotion, crystallized into verse, a living flame that has illumined the hearts of Tamil Shaivites across a thousand years."</p>
+      <p>The sixty-three Nayanmars came from every stratum of society — kings, farmers, merchants, hunters, potters, and weavers. Their diversity is itself a teaching: the grace of Lord Shiva respects no boundary of birth, occupation, or learning. What alone matters is the sincerity and totality of surrender.</p>
+      <p>Sekkizhar composed approximately <strong>4,286 verses</strong> organized into <strong>thirteen Sarukkams</strong> (divisions). The impetus for this monumental work was the king's desire for a poem that would surpass all secular literature — a poem whose subject was not earthly glory but divine devotion in its most radical, transformative forms.</p>
+      <p>Sundaramurthi Nayanar's earlier composition, the <em>Thiruthondar Thogai</em>, provided the sacred list of all sixty-three saints from which Sekkizhar drew his inspiration and narrative framework. Each saint's story is a unique window into the infinite possibilities of surrender to the Divine.</p>
+      <div class="virtue-tags">
+        <span class="virtue">Bhakti</span><span class="virtue">Self-Surrender</span><span class="virtue">Divine Service</span><span class="virtue">Grace</span><span class="virtue">Liberation</span>
+      </div>
+      <p style="text-align:center;font-family:'Cinzel',serif;color:var(--gold);margin-top:16px;font-size:.88rem;letter-spacing:.14em">— OM NAMAH SHIVAYA —</p>
+    </div>
+  </div>
+  <div class="nav-bar">
+    <button class="nav-btn" onclick="nav(0)">‹ Previous</button>
+    <span class="nav-info">Page 2 of 25</span>
+    <button class="nav-btn" onclick="nav(2)">Next ›</button>
+  </div>
+</div>
+
+<!-- PAGE 2: TABLE OF CONTENTS -->
+<div class="page" id="page-2">
+  <div class="book-page">
+    <div class="inner-border"></div>
+    <div class="ch-ornament">✦ ❀ ✦</div>
+    <h1 class="toc-page-title">Index of Contents</h1>
+    <p class="toc-page-sub">Sixty-Three Saints · Thirteen Sacred Divisions</p>
+    <div class="ch-rule"><span class="ch-rule-icon">❀</span></div>
+
+    <div class="toc-section-head">Frontmatter</div>
+    <div class="toc-row" onclick="nav(1)"><span class="toc-row-n"></span><span class="toc-row-name">Introduction</span><span class="toc-row-dots"></span><span class="toc-row-pg">ii</span></div>
+    <div class="toc-row" onclick="nav(3)"><span class="toc-row-n"></span><span class="toc-row-name">The Thirteen Sarukkams</span><span class="toc-row-dots"></span><span class="toc-row-pg">iv</span></div>
+
+    <div class="toc-section-head">The Saints</div>
+    <div id="toc-saints-list"></div>
+
+    <div class="toc-section-head">Appendix</div>
+    <div class="toc-row" onclick="nav(23)"><span class="toc-row-n"></span><span class="toc-row-name">Gallery of All 63 Saints</span><span class="toc-row-dots"></span><span class="toc-row-pg">47</span></div>
+    <div class="toc-row" onclick="nav(24)"><span class="toc-row-n"></span><span class="toc-row-name">Colophon</span><span class="toc-row-dots"></span><span class="toc-row-pg">51</span></div>
+  </div>
+  <div class="nav-bar">
+    <button class="nav-btn" onclick="nav(1)">‹ Previous</button>
+    <span class="nav-info">Page 3 of 25</span>
+    <button class="nav-btn" onclick="nav(3)">Next ›</button>
+  </div>
+</div>
+
+<!-- PAGE 3: SARUKKAMS -->
+<div class="page" id="page-3">
+  <div class="book-page">
+    <div class="inner-border"></div>
+    <div class="ch-ornament">✦ ❀ ✦</div>
+    <span class="ch-num">Structure of the Sacred Work</span>
+    <h1 class="ch-title">The Thirteen Sarukkams</h1>
+    <p class="ch-subtitle">Sacred Divisions of the Periya Puranam</p>
+    <div class="ch-rule"><span class="ch-rule-icon">❀</span></div>
+    <div class="ch-body">
+      <p>The Periya Puranam is organized into <strong>thirteen divisions</strong> called <em>Sarukkams</em>. Each takes its name from a verse or phrase within the Tamil text that captures the essential quality of the saints it contains. Together they span the full breadth of human experience illuminated by divine grace.</p>
+    </div>
+    <div style="margin-top:18px;display:grid;gap:0">
+      <div id="sarukkam-list"></div>
+    </div>
+  </div>
+  <div class="nav-bar">
+    <button class="nav-btn" onclick="nav(2)">‹ Previous</button>
+    <span class="nav-info">Page 4 of 25</span>
+    <button class="nav-btn" onclick="nav(4)">Next ›</button>
+  </div>
+</div>
+
+<!-- PAGES 4–22: Generated by JS -->
+
+<!-- PAGE 23: GALLERY -->
+<div class="page" id="page-23">
+  <div class="book-page">
+    <div class="inner-border"></div>
+    <div class="ch-ornament">✦ ❀ ✦</div>
+    <span class="ch-num">Appendix</span>
+    <h1 class="ch-title" style="font-size:1.5rem">Gallery of All 63 Nayanmars</h1>
+    <p class="ch-subtitle">The Complete Sacred Roll across Thirteen Divisions</p>
+    <div class="ch-rule"><span class="ch-rule-icon">❀</span></div>
+    <div class="ch-body" style="font-size:.92rem">
+      <p>The following is the sacred enumeration of all Sixty-Three Nayanmars as celebrated in Sekkizhar's Periya Puranam — lamps of devotion whose combined radiance has illumined the Tamil Shaiva tradition for more than eight centuries.</p>
+    </div>
+    <div id="gallery-grid" style="margin-top:16px;columns:2;column-gap:22px;font-size:.82rem;line-height:1.65"></div>
+  </div>
+  <div class="nav-bar">
+    <button class="nav-btn" onclick="nav(22)">‹ Previous</button>
+    <span class="nav-info">Page 24 of 25</span>
+    <button class="nav-btn" onclick="nav(24)">Next ›</button>
+  </div>
+</div>
+
+<!-- PAGE 24: COLOPHON -->
+<div class="page" id="page-24">
+  <div class="book-page">
+    <div class="inner-border"></div>
+    <div class="colophon-wrap">
+      <div class="ch-ornament">✦ ❀ ✦</div>
+      <span style="font-size:2.8rem;display:block;margin-bottom:16px;filter:drop-shadow(0 0 10px rgba(255,200,50,.6))">🪔</span>
+      <h2 style="font-family:'Cinzel Decorative',serif;font-size:1.5rem;color:var(--crimson);margin-bottom:12px">Colophon</h2>
+      <div style="width:58%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 18px"></div>
+      <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:var(--ink-l);max-width:460px;line-height:1.85;margin-bottom:18px">"Among all the epics of this world, the Periya Puranam is supreme — it is the very life-breath of Tamil Shaivism, the record of sixty-three perfected souls who showed humanity the inexhaustible forms of divine love."</p>
+      <p style="font-family:'Cinzel',serif;font-size:.78rem;color:var(--stone);letter-spacing:.1em">— SEKKIZHAR</p>
+      <p style="font-family:'Cinzel',serif;font-size:.7rem;color:var(--stone-l);letter-spacing:.12em;margin-bottom:24px">Poet Laureate of the Chola Court · 12th Century CE</p>
+      <div style="font-size:1.1rem;color:var(--gold);letter-spacing:.5rem;margin-bottom:20px">✦ ✦ ✦</div>
+      <p style="font-family:'Cinzel',serif;font-size:.72rem;color:var(--stone-l);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px">Source</p>
+      <p style="font-size:.85rem;color:var(--stone-l);line-height:1.6">Content based on Saivaite philosophy tradition.<br>Accounts drawn from the Periya Puranam narrative record.</p>
+      <div style="width:58%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:22px auto 16px"></div>
+      <p style="font-family:'Cinzel Decorative',serif;font-size:.95rem;color:var(--gold);letter-spacing:.1em">OM NAMAH SHIVAYA</p>
+      <p style="font-size:2rem;margin-top:8px;color:var(--crimson)">ॐ</p>
+    </div>
+  </div>
+  <div class="nav-bar">
+    <button class="nav-btn" onclick="nav(23)">‹ Previous</button>
+    <span class="nav-info">Page 25 of 25</span>
+    <button class="nav-btn" disabled>End ›</button>
+  </div>
+</div>
+
+</main>
+
+<button id="stbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<script>
+/* ====================================================
+   DATA
+   ==================================================== */
+const SARUKKAMS = [
+  {num:'I',   name:'Thirumalai Sarukkam',              desc:'The Sacred Mountain — glory of the Lord Almighty'},
+  {num:'II',  name:'Thillaivaalanthana Sarukkam',       desc:'Those who dwell in the sacred groves of Thillai (Chidambaram)'},
+  {num:'III', name:'Ilaimalintha Sarukkam',             desc:'Those whose very youth was suffused with sacred devotion'},
+  {num:'IV',  name:'Mummaiyaal Ulagaanda Sarukkam',     desc:'Those who governed the three worlds through the power of devotion'},
+  {num:'V',   name:'Thirunindra Sarukkam',              desc:'Those who stood firm and unwavering in sacred austerity'},
+  {num:'VI',  name:'Vambara Varivanda Sarukkam',        desc:'Those surrounded by the fragrance of celestial flowers'},
+  {num:'VII', name:'Varkonda Vanamulaiyaal Sarukkam',   desc:'Those who worshipped the Goddess of the forest hill'},
+  {num:'VIII',name:'Poiyadimai illatha pulavar Sarukkam',desc:'The poets who knew no falsehood in their sacred service'},
+  {num:'IX',  name:'Karaikkandan Sarukkam',             desc:'Those of the sacred coastal town of Karaikkal'},
+  {num:'X',   name:'Kadal Sooltha Sarukkam',            desc:'Those surrounded by the encircling ocean of devotion'},
+  {num:'XI',  name:'Pattharai panivai Sarukkam',        desc:'Those who served with garlands woven of sacred verse'},
+  {num:'XII', name:'Maniiyaseer Sarukkam',              desc:'Those of jewelled excellence in selfless devotional service'},
+  {num:'XIII',name:'Vellanai Sarukkam',                 desc:'The concluding glory — those of the white-elephant grace'},
+];
+
+const CHAPTERS = [
+  {
+    num:1, pageIdx:4,
+    title:'Sundaramurthi Nayanar',
+    subtitle:'The Friend of the Lord',
+    sarukkam:'Thirumalai Sarukkam · I',
+    virtues:['Divine Friendship','Poetic Devotion','Celestial Ascent'],
+    body:`<p class="dropcap"><strong>Sundaramurthi Nayanar</strong> holds a singular place among the sixty-three saints — unique for the intimacy and bold affection with which he addressed Lord Shiva, speaking to the Divine not as a supplicant overwhelmed by awe, but as a dear and beloved friend.</p>
+    <p>Born in the 8th century CE, Sundaramurthi's life was shaped from its very beginning by divine intervention. As he was about to be married, Lord Shiva himself appeared and claimed the young man as his own devotee, redirecting the course of his life entirely. The Lord's action was one of love rather than decree — drawing him away from a householder's path toward the life of a wandering poet-saint.</p>
+    <p class="verse-box">"He addressed the Lord as his companion, his kinsman, his everything — and the Lord, delighted by such unguarded love, drew him ever closer into divine friendship."</p>
+    <p>What distinguishes Sundaramurthi is the tone of his relationship with Shiva. While other saints approached the Lord with reverence and trembling, Sundaramurthi spoke freely, questioned the Lord, even expressed mild reproach when he felt the Lord had been absent too long. This familiarity was itself the highest devotion — for it implied an intimacy so complete that no distance remained between the devotee and the Beloved.</p>
+    <p>He composed the celebrated <em>Thiruthondar Thogai</em>, the hymn naming all sixty-three Nayanmars — the very seed from which Sekkizhar grew the great tree of the Periya Puranam. His <em>Thevaram</em> verses are sung in temples across Tamil Nadu to this day, their melody as fresh as when they first arose from his devoted heart.</p>
+    <p>At the close of his earthly sojourn, Lord Shiva sent a divine white elephant to carry Sundaramurthi to Kailasa, the Lord's own abode. The poet mounted the sacred elephant and ascended, leaving behind only his songs — which remain, burning like lamps, in the hearts of all who recite them.</p>`
+  },
+  {
+    num:2, pageIdx:5,
+    title:'Tiru Neelakanta Nayanar',
+    subtitle:'The Devoted Potter',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Steadfast Vow','Sacred Reverence','Marital Piety'],
+    body:`<p class="dropcap"><strong>Tiru Neelakanta Nayanar</strong>, a potter of Sirkazhi, devoted his craft and his life entirely to the service of Lord Shiva's devotees. With each clay vessel shaped by his hands, he fashioned an act of worship — for what is offered in the service of the Lord's devotees is offered to the Lord himself.</p>
+    <p>Day after day, Neelakanta crafted bowls, cups, and vessels for use in sacred ritual and for the personal needs of wandering Shaiva devotees. His home was a place of continuous giving — open always to those who bore the sacred marks of Shiva's devotion.</p>
+    <p>The defining moment of his story arose through a sacred vow. His devoted wife once invoked the name of the Lord in a solemn oath. For Neelakanta, so profound was his reverence for the Lord's name, he took an immediate and permanent vow: he would never again touch any woman — even his beloved wife — in physical contact, out of supreme reverence for the sanctity of the sacred name she had spoken.</p>
+    <p class="verse-box">"The name of Lord Shiva, once invoked in truth, becomes a threshold of sanctity — and for this devoted potter, that threshold transformed the entire nature of a human bond into a divine one."</p>
+    <p>Years passed. Husband and wife lived in chaste devotion side by side, their marriage transformed into a form of sacred companionship more intimate, in its way, than any physical bond. Moved by this extraordinary reverence, Lord Shiva appeared before them and, by divine grace, restored both to youth — a blessing that crowned the remaining years of their lives with radiant joy.</p>`
+  },
+  {
+    num:3, pageIdx:6,
+    title:'Iyarpahai Nayanar',
+    subtitle:'The Merchant of Unconditional Charity',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Unconditional Giving','Seeing God in Devotees','Divine Test'],
+    body:`<p class="dropcap"><strong>Iyarpahai Nayanar</strong> was a merchant of noble birth who made the service of Shiva's devotees the central purpose of his wealth and his life. His charity was not selective or calculated — whatever a devotee of Lord Shiva asked of him, he gave without hesitation or condition.</p>
+    <p>This principle was absolute. Iyarpahai understood deeply the Shaivite teaching that the devotee of Shiva and Shiva himself are not separate — to honor one is to honor the other; to refuse one is to refuse the other. This understanding was not merely intellectual but lived, enacted daily through his generous service.</p>
+    <p>The supreme test came when Lord Shiva himself appeared at Iyarpahai's door, in the disguise of a wandering Shaiva devotee, and made a demand that would shatter most households: he asked for Iyarpahai's own wife to be given to him.</p>
+    <p class="verse-box">"He saw before him only a devotee of his Lord, bearing the sacred marks. Whatever such a one asked was a request from the Lord himself. And what the Lord asks, one gives."</p>
+    <p>Without hesitation, Iyarpahai brought his wife forward and offered her — the ultimate test of whether his principle of unconditional giving was real or merely convenient. In that moment of absolute surrender, Lord Shiva revealed his divine form. The disguise fell away, and the merchant and his wife beheld the radiant Lord whom they had served through so many acts of charity. Both were granted divine liberation.</p>`
+  },
+  {
+    num:4, pageIdx:7,
+    title:'Ilayankudi Mara Nayanar',
+    subtitle:'The Farmer Who Fed the Lord in Disguise',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Selfless Service','Ultimate Sacrifice','Hospitality Without Limit'],
+    body:`<p class="dropcap"><strong>Ilayankudi Mara Nayanar</strong> was a farmer whose entire life was organized around one sacred principle: feed and serve every devotee of Lord Shiva who comes to his door. No calculation, no condition, no limit.</p>
+    <p>Over the years, this unstinting generosity diminished his worldly wealth. When surplus grain was exhausted, he served what remained. When that too grew scarce, he continued to give. He never turned away a devotee of the Lord, even as his own circumstances became more and more constrained.</p>
+    <p>The moment of ultimate trial arrived when he had nothing left to offer but the precious seed grain — the handful of seeds kept aside for the next planting season, the sole guarantee of a future harvest. A wandering sage appeared at his door: Lord Shiva himself in disguise.</p>
+    <p class="verse-box">"He had given his surplus; then his savings; then his comfort. Now there remained only the future — the seed corn, the promise of next year's harvest. He cooked it and offered it, smiling."</p>
+    <p>Without a moment's hesitation, Ilayankudi Mara Nayanar cooked the seed grain and offered it as a sacred meal. Lord Shiva, deeply moved by the farmer's total surrender — giving up not only the present but all hope of the future — revealed his divine form and granted the farmer and his family immediate liberation. The one who had given up everything received the one thing that contains everything.</p>`
+  },
+  {
+    num:5, pageIdx:8,
+    title:'Meiporul Nayanar',
+    subtitle:'The Just King Who Honored His Murderer',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Absolute Justice','Honor of All Devotees','Royal Surrender'],
+    body:`<p class="dropcap"><strong>Meiporul Nayanar</strong> was a righteous king renowned throughout his realm for wisdom, justice, and unwavering devotion to Lord Shiva. His story is among the most philosophically profound in the Periya Puranam — a tale of devotion so complete that it could not be extinguished even by betrayal and death.</p>
+    <p>A neighboring king, consumed by jealousy of Meiporul's virtue, devised a treacherous plan. Adorning himself with the sacred ash and other marks of a Shaiva devotee, he approached Meiporul and struck him with a mortal blow.</p>
+    <p>As Meiporul fell, his eyes found his attacker — and saw the sacred ash of Lord Shiva upon his forehead. In the instant between the blow and his death, a realization arose in him, clear and absolute: this man bore the marks of a Shiva devotee. Whatever his intention, whatever evil moved him, those sacred marks made him sacred. And to harm one who bore them, even in self-defence, was to harm the Lord himself.</p>
+    <p class="verse-box">"A king of flesh lay dying — yet his last act was not vengeance but reverence. He bowed to the one who had struck him, seeing in him not an enemy but a servant of the Lord he loved."</p>
+    <p>With his last breath, Meiporul honored his murderer as a devotee of Shiva. Lord Shiva, witnessing this supreme act — devotion that could not be disrupted even by treachery and death — granted Meiporul immediate liberation. His story stands as testimony that when the understanding of God's presence in all devotees becomes truly absolute, even death cannot shake it.</p>`
+  },
+  {
+    num:6, pageIdx:9,
+    title:'Viralminda Nayanar',
+    subtitle:'The Fearless Corrector',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Righteous Correction','Equality of All Devotees','Fearless Truthfulness'],
+    body:`<p class="dropcap"><strong>Viralminda Nayanar</strong> was a devotee from the hill country — a region whose people were known for directness and an uncomplicated, fiercely sincere nature. His story is a reminder that true devotion includes the duty to uphold the equal honor of all the Lord's devotees, whoever they may be.</p>
+    <p>The Nayanar's moment of divine action came during an encounter with Sundaramurthi Nayanar himself — one of the most celebrated of all the saints, a poet beloved of the Lord. Sundaramurthi, traveling through the region, appeared in Viralminda's eyes to be making distinctions among devotees — honoring some while being indifferent to others.</p>
+    <p>Viralminda did not hesitate. Despite Sundaramurthi's towering stature as a saint and singer, the hill-country devotee spoke up with the directness of pure love: all devotees of Lord Shiva are equal in the Lord's sight. To make distinctions among them is to misunderstand the nature of devotion itself.</p>
+    <p class="verse-box">"Honoring one who bears the Lord's mark while overlooking another is not devotion — it is preference. And preference has no place in the house of the Lord's love."</p>
+    <p>Sundaramurthi received this correction with the humility of a true devotee, recognizing the truth in the hill-country saint's words. Viralminda Nayanar stands in the tradition as the embodiment of the principle that Shaiva devotion is not a hierarchy but a fellowship — each member equally precious in the Lord's sight, equally deserving of honor from every other.</p>`
+  },
+  {
+    num:7, pageIdx:10,
+    title:'Amaraneedi Nayanar',
+    subtitle:'He Who Weighed Himself for the Lord',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Complete Self-Offering','Charitable Service','The Sacred Balance'],
+    body:`<p class="dropcap"><strong>Amaraneedi Nayanar</strong>, a wealthy trader settled in the sacred town of Tirunallur, devoted his fortune and his life to what the tradition calls <em>Kowpeena charity</em> — the continuous offering of sacred loin cloths and garments to wandering devotees of Lord Shiva who had renounced worldly comfort.</p>
+    <p>Day after day, the cloth flowed from his stores to the devotees who came. He sought no recognition and kept no accounts. His giving was a form of worship, as natural and continuous as breathing — the wealth the Lord had given him, returned to the Lord through the Lord's own devotees.</p>
+    <p>The divine test came through a sacred cloth. A devotee — Lord Shiva in the guise of a wandering ascetic — claimed that a garment placed in Amaraneedi's care had been damaged or lost, and demanded compensation. Though the merchant knew he had been meticulous, he accepted the charge without protest. He would find a way to make it right.</p>
+    <p class="verse-box">"He placed first his gold, then his land, then his family — yet the sacred cloth, touched by divine power, outweighed them all. Finally, he placed himself upon the scale."</p>
+    <p>When all his wealth proved insufficient, Amaraneedi offered himself — his own body and being placed upon the balance in surrender. In that moment of total self-offering, Lord Shiva revealed his divine form. The Nayanar who had given everything, including himself, received the one gift that cannot be weighed: liberation in the eternal presence of the Lord.</p>`
+  },
+  {
+    num:8, pageIdx:11,
+    title:'Eripatha Nayanar',
+    subtitle:'The Warrior Who Protected Sacred Service',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Fierce Protection','Reverence for Devotees','Warrior Devotion'],
+    body:`<p class="dropcap"><strong>Eripatha Nayanar</strong> was a warrior by birth, training, and temperament — a man in whom devotion to Lord Shiva expressed itself not through gentle service but through the fierce and decisive protection of those who performed that service.</p>
+    <p>His moment of supreme action came when he witnessed an elderly devotee engaged in one of the most intimate acts of temple worship: gathering fresh flowers to offer at the Lord's shrine. This daily act of love — rising early, tending the flowers, selecting the finest blooms for the Lord — was, for the flower-gatherer, the center of an entire life of devotion.</p>
+    <p>A wild elephant suddenly charged toward the elderly devotee, threatening both the man's life and the sacred flowers he carried. The saint could not flee. In that instant, Eripatha Nayanar saw not merely an old man in danger, but the sacred service of Lord Shiva itself under threat.</p>
+    <p class="verse-box">"What threatened the Lord's devotee threatened the Lord's own service — and for a warrior of devotion, no sacrifice is too great to protect what belongs to the Lord."</p>
+    <p>Without hesitation, Eripatha Nayanar confronted the elephant and slew it, preserving both the devotee's life and the sacred flowers. The act was violent, yet it arose from the purest devotion. It reveals that devotion finds its expression in the nature of the devotee — and for the warrior, the sword raised in defense of sacred service is as holy as any garland offered in worship.</p>`
+  },
+  {
+    num:9, pageIdx:12,
+    title:'Enadinatha Nayanar',
+    subtitle:'The Swordsman Who Chose Death Over Dishonor',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Absolute Ahimsa to Devotees','Principled Courage','Death Before Dishonor'],
+    body:`<p class="dropcap"><strong>Enadinatha Nayanar</strong> was a master swordsman — a teacher of martial arts whose entire skill and discipline had been consecrated to Lord Shiva. The particular form of his devotion was an absolute, inviolable reverence for the sacred ash that Shiva's devotees wear upon their bodies.</p>
+    <p>For Enadinatha, the sacred ash (<em>vibhuti</em>) was not merely a religious mark but the literal presence of the divine made visible. Whoever bore it was, in that bearing, sacred — as inviolable as the Lord himself. No circumstance could justify raising a hand against one so marked.</p>
+    <p>The test of this absolute principle came in the most extreme possible form: someone bearing the sacred ash attacked him with lethal intent. Every warrior's instinct, every survival impulse, every trained reflex demanded that he defend himself. He was one of the finest swordsmen of his time. He could have disarmed his attacker in a single movement.</p>
+    <p class="verse-box">"He who had mastered the art of the sword laid it down — choosing death rather than harm one who bore the marks of his Lord. In surrendering his life, he kept his devotion intact."</p>
+    <p>Enadinatha Nayanar received the blow rather than strike back. In that supreme moment of choosing death over the violation of his sacred principle, Lord Shiva granted him the highest liberation. His story asks the most searching question devotion can pose: when your very life is at stake, do you still see the divine in the one threatening you? Enadinatha answered with his life — and found eternal life in return.</p>`
+  },
+  {
+    num:10, pageIdx:13,
+    title:'Kannappa Nayanar',
+    subtitle:'The Hunter Who Gave His Eyes to God',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Unmediated Love','Total Self-Offering','Devotion Beyond Form'],
+    body:`<p class="dropcap">Of all the sixty-three Nayanmars, <strong>Kannappa Nayanar</strong> — born as Tinnanar, son of a hunter chief — embodies perhaps the most radical understanding of devotion: that the Lord responds not to the form of worship but to the love behind it.</p>
+    <p>Kannappa had no religious education. He knew nothing of Sanskrit, of sacred ritual, of the refined protocol of temple worship. Yet when he first encountered the Shivalingam at Kalahasti in the forest, something in his warrior's heart recognized the divine with total certainty — and he fell in love with a completeness that no doctrine could have produced.</p>
+    <p>His worship was, by all conventional measures, scandalous. He brought fresh meat from the hunt and offered it to the sacred image. He took water in his mouth to bathe the lingam. He removed flowers from his own unwashed hair and placed them on the Lord. Brahmin priests who witnessed these acts were horrified.</p>
+    <p class="verse-box">"Yet Lord Shiva received each seemingly inappropriate offering with greater joy than the most learned and elaborate ritual — for behind each act lay a love so complete, so utterly surrendered, that no barrier remained between the devotee and the Lord."</p>
+    <p>The supreme moment came when the lingam appeared to weep blood from one eye. Kannappa, without a single hesitation, plucked out his own eye and pressed it against the sacred image. When the other eye began to bleed, Kannappa placed his foot against the lingam to guide him in blindness — and reached up to give his second eye.</p>
+    <p>At that moment Lord Shiva caught Kannappa's hand and stopped him. The divine play was complete. The Lord appeared in all his glory and declared that Kannappa's worship — born of pure love and total ignorance of ritual — was the highest he had ever received. Kannappa was granted eternal liberation at the Lord's own feet.</p>`
+  },
+  {
+    num:11, pageIdx:14,
+    title:'Kungiliya Kalaya Nayanar',
+    subtitle:'The Devotee of Eternal Fragrance',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Ceaseless Worship','Spousal Devotion','Sacrifice of the Beloved'],
+    body:`<p class="dropcap"><strong>Kungiliya Kalaya Nayanar</strong> — whose name evokes the fragrant resin (<em>kungiliyam</em>) he burned so continuously — devoted his existence to one practice: the unceasing burning of sacred incense before Lord Shiva. Day and night, the fragrant smoke of his love rose before the divine presence.</p>
+    <p>This practice, maintained with total commitment, consumed his resources steadily. When his own wealth was exhausted in the purchase of incense, he found other means — always discovering a way to keep the sacred flame of fragrance burning, because for him, the unbroken continuity of this offering was inseparable from the unbroken continuity of his love.</p>
+    <p>The moment of supreme sacrifice came when all means were exhausted, and still the incense needed replenishing. His devoted wife, understanding fully what her husband's worship meant — understanding that this fragrant offering was not a practice but a living heartbeat — made the decision herself.</p>
+    <p class="verse-box">"She took the sacred thread of her marriage — the thaali, most intimate symbol of a Hindu wife's sacred bond — and surrendered it, so that its value could keep the Lord's fragrance burning."</p>
+    <p>This act of ultimate sacrifice, surrendering the visible symbol of her deepest human bond for the sake of the Lord's worship, moved Lord Shiva profoundly. Divine wealth flowed into their home, surpassing all that had been given. The devotee who would not let the Lord's incense go dark found that the Lord would not let his light go out.</p>`
+  },
+  {
+    num:12, pageIdx:15,
+    title:'Manakanchara Nayanar',
+    subtitle:'The Community Leader and the Divine Thread',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Acceptance','Trust in the Lord','Surrendered Fatherhood'],
+    body:`<p class="dropcap"><strong>Manakanchara Nayanar</strong> was a respected community leader — a man of standing whose household was known for its devotion to Lord Shiva and its welcome to all who came in the Lord's name. His story turns on a moment of bewildering acceptance and the grace that follows such acceptance.</p>
+    <p>The divine test came through his daughter. A visiting Maha-Vrathiar — a great ascetic practicing severe austerities — arrived at Manakanchara's home. This ascetic was Lord Shiva himself in disguise, and the form the divine drama took was startling: the visitor cut off the hair of the Nayanar's daughter to fashion a sacred thread for his ritual practice.</p>
+    <p>The cutting of a young woman's hair is, in the Tamil tradition, a deeply charged act — associated with widowhood, loss, and grief. For a father, to witness such an act performed upon his daughter without consent or explanation would seem an outrage demanding immediate response.</p>
+    <p class="verse-box">"Yet Manakanchara Nayanar saw not an outrage but a visitation of the Lord. The sacred devotee before him was to be honored, not questioned — and what the devotee required, the devotee was given."</p>
+    <p>The Nayanar received even this act with acceptance, trusting that what a true devotee of Lord Shiva did was done in the Lord's will. In response to this extraordinary acceptance, the Lord revealed his divine nature, restored the daughter's hair — and blessed the household with divine grace and liberation.</p>`
+  },
+  {
+    num:13, pageIdx:16,
+    title:'Arivattaya Nayanar',
+    subtitle:'He Whose Sickle Became a Sword of Devotion',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Absolute Accountability','Sacred Reverence','Stopped by the Lord\'s Hand'],
+    body:`<p class="dropcap"><strong>Arivattaya Nayanar</strong> — named for the sickle (<em>arival</em>) he carried — was a devoted servant of Lord Shiva who held himself to an absolute standard in the service of the Lord's food offerings. For him, any failure in the sacred service of the Lord's food was a failure too grave to simply regret and move on from.</p>
+    <p>His moment of supreme crisis came when, in the course of preparing or offering the Lord's sacred food, some was accidentally spilled. For most, this would be an unfortunate accident — regrettable but forgivable, to be corrected and continued. For Arivattaya Nayanar, the standard was absolute: the Lord's offering had been compromised through his own hands.</p>
+    <p>The depth of his anguish at this failure was total. He reached for his own sickle, intending to take his own life as the only adequate response to having failed the Lord's sacred service so completely.</p>
+    <p class="verse-box">"His standard for the Lord's service was so absolute, his love so entire, that his own life seemed a small price for having failed even once in that which mattered most."</p>
+    <p>At that moment, Lord Shiva's own hand appeared and stopped him — the divine hand catching the blade before it could fall, and the divine voice declaring that this servant's anguish was itself the highest form of worship. Arivattaya Nayanar was granted the Lord's embrace and liberation — saved by the very Lord he had feared he had failed.</p>`
+  },
+  {
+    num:14, pageIdx:17,
+    title:'Anaya Nayanar',
+    subtitle:'The Cowherd Whose Flute Moved the Divine',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Natural Devotion','Sacred Music','Universal Grace'],
+    body:`<p class="dropcap"><strong>Anaya Nayanar</strong> was a cowherd — a simple man of the fields and forests whose devotion to Lord Shiva expressed itself through the one gift he possessed: a deep, natural musicianship and an intimate knowledge of the sacred Panchakshara mantra.</p>
+    <p>Each day, as he led his cattle through the pastures, Anaya Nayanar would play the sacred five-syllabled mantra of Lord Shiva — <em>Na-ma-shi-va-ya</em> — upon his flute. The music arose not from learned technique but from the heart of a man entirely at home with his Lord, as naturally as a bird sings at dawn.</p>
+    <p>The effect of this music was extraordinary. Animals of every kind — the cattle in his care, wild creatures of the forest, birds in the trees — would fall still and listen, gathered around the cowherd as if drawn by an invisible hand. Celestial beings, it is said, paused their journeys through the heavens to hear the sacred mantra rendered in the cowherd's melody.</p>
+    <p class="verse-box">"He knew no formal worship, no sacred texts, no learned ritual. He knew only the five syllables of the Lord's name, and the flute through which he breathed them — and that was enough."</p>
+    <p>Lord Shiva, moved by the utter naturalness and purity of this devotion — music that arose directly from love, unmediated by learning or form — appeared before the cowherd in divine splendor. Anaya Nayanar ascended directly into the Lord's presence, the flute still in his hands, the mantra still on his lips.</p>`
+  },
+  {
+    num:15, pageIdx:18,
+    title:'Murthi Nayanar',
+    subtitle:'The Devotee of Sandalwood and Sacrifice',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Steadfast Practice','Sacrifice Under Persecution','Ingenuity of Devotion'],
+    body:`<p class="dropcap"><strong>Murthi Nayanar</strong> devoted his life to the preparation of sandalwood paste — the fragrant, cooling unguent used to anoint the sacred lingam of Lord Shiva. In his hands, the daily grinding of sandalwood upon the stone became a meditation, each circular movement an act of love, the fragrance rising as continuous prayer.</p>
+    <p>His devotion was tested by one of the periodic waves of anti-Shaiva sentiment that arose in the Tamil lands — a time when Jain influence led a ruling king to ban the use of sandalwood in Shaiva worship. To continue his practice openly was to risk severe punishment.</p>
+    <p>Murthi Nayanar did not cease his devotion; he found a way to continue it. Unable to use sandalwood, he turned to his own body — rubbing his own elbow upon the sacred stone in the same circular motion he had used for the sandalwood, until the skin was worn raw. He would not stop the motion that had become his deepest prayer.</p>
+    <p class="verse-box">"When the material of worship was forbidden, he used the only material remaining — his own flesh. And the Lord, who receives the spirit of offering rather than its form, received it with grace."</p>
+    <p>This act of absolute persistence — finding a way to continue the sacred practice even at the cost of his own flesh — ultimately led Murthi Nayanar into circumstances through which he became a righteous ruler himself. His liberation came through the completeness of a devotion that no external force could interrupt or diminish.</p>`
+  },
+  {
+    num:16, pageIdx:19,
+    title:'Muruga Nayanar',
+    subtitle:'The Flower Gardener and the Great Saint\'s Friend',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Devoted Service','Sacred Friendship','Shared Liberation'],
+    body:`<p class="dropcap"><strong>Muruga Nayanar</strong> was a gardener and garland-maker — a man whose entire art was devoted to the Lord. Each day he tended the flowers that would adorn Lord Shiva's form, selecting the most beautiful blooms, weaving them with care into garlands that were at once offerings and love letters to the divine.</p>
+    <p>Muruga Nayanar's life intersected with that of the great saint Thirugnana Sambandar — one of the most celebrated Nayanmars, the child-poet to whom Lord Shiva and the Goddess appeared directly and gave the gift of sacred verse. The friendship that developed between the flower-gardener and the poet-saint was itself a form of devotion.</p>
+    <p>Sambandar, moving through the Tamil lands and singing the Lord's praises at sacred shrines, found in Muruga Nayanar not merely a provider of garlands but a genuine fellow-devotee — someone whose love for the Lord, expressed through flowers and fragrance, was as complete in its own way as Sambandar's was through verse.</p>
+    <p class="verse-box">"The poet sang of the Lord in words; the gardener offered the Lord in flowers. Each was complete in his devotion; together they were a single act of worship given back to the Lord."</p>
+    <p>When the time of Sambandar's ascension came — the great saint's departure from this world into the Lord's eternal presence — Muruga Nayanar was granted the extraordinary grace of sharing in that liberation. The two devotees, poet and gardener, were absorbed together into the divine presence — a testament to the grace that flows between souls whose devotion is pure.</p>`
+  },
+  {
+    num:17, pageIdx:20,
+    title:'Rudra Pasupathi Nayanar',
+    subtitle:'The Devotee Who Stood in Sacred Waters',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Austerity','Sustained Practice','Liberation through Steadfastness'],
+    body:`<p class="dropcap"><strong>Rudra Pasupathi Nayanar</strong> chose one practice and pursued it with absolute consistency until liberation came. His chosen austerity was the recitation of <em>Sri Rudram</em> — one of the most ancient and sacred hymns of the Vedic tradition, a direct address to Lord Shiva in his form as Rudra — while standing immersed to the neck in sacred water.</p>
+    <p>This practice — <em>japa</em> in water — is among the most demanding of physical disciplines. The cold water, the sustained stillness, the maintenance of concentration through physical discomfort: all these become part of the offering. The body itself becomes the instrument of worship, its endurance a demonstration of the will's subordination to love.</p>
+    <p>Day after day, in the sacred waters, Rudra Pasupathi Nayanar stood and recited the ancient verses — each line a stone in a bridge being built, with infinite patience, between the human and the divine. He asked for nothing but the continuance of this practice and the nearness to the Lord it brought him.</p>
+    <p class="verse-box">"The waters of the sacred river were his temple; the ancient verses were his walls and roof; the standing body, cold and still, was his lamp — and the Lord was his witness."</p>
+    <p>Through the sustained power of this practice — steadfast, undeviating, maintained across the seasons of a dedicated life — Lord Shiva granted Rudra Pasupathi Nayanar the liberation he had sought. The man who stood in the river for the Lord was ultimately carried by the Lord into the eternal river of divine grace.</p>`
+  },
+  {
+    num:18, pageIdx:21,
+    title:'Tiru Nalai Povar Nayanar',
+    subtitle:'Nandanar — The Untouchable Who Walked Through Fire',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Perseverance','Transcendence of Birth','Purification by Fire'],
+    body:`<p class="dropcap"><strong>Tiru Nalai Povar Nayanar</strong> — known universally as <strong>Nandanar</strong> — is one of the most beloved figures in all of Tamil devotional literature. Born into the community of leather workers, a group considered among the lowest of the low in the rigid social hierarchy of his time, Nandanar's story is a radical declaration that the Lord's grace recognizes no barrier of birth.</p>
+    <p>Nandanar burned with a single desire: to visit the great temple of Chidambaram and behold Lord Nataraja — the Lord of the cosmic dance — face to face. Yet the social conventions of his era placed the temple's inner precincts beyond the reach of someone of his birth. He stood at the boundary, looking in, his heart overflowing with longing.</p>
+    <p>His name itself encodes his devotion: <em>Nalai Povar</em> means "the one who says he will go tomorrow." Year after year, Nandanar would say "I will go to Chidambaram tomorrow" — not out of hesitation but out of the ache of longing, the perpetual yearning of a heart that cannot yet reach what it loves most.</p>
+    <p class="verse-box">"Tomorrow, tomorrow — and in each tomorrow was a life lived in the trembling, luminous space between longing and fulfillment, between the devotee and his Lord."</p>
+    <p>When the moment of divine grace finally came, it arrived as transformation. The priests of Chidambaram, moved by the depth of Nandanar's devotion, prepared a sacred fire — and the tradition records that Nandanar walked into it. What emerged from the fire was a man transformed: every trace of the social limitation of his birth burned away, a radiant devotee who entered the Lord's presence in the great temple and merged with Lord Nataraja in the eternal bliss of liberation.</p>`
+  },
+  {
+    num:19, pageIdx:22,
+    title:'Tiru Kurippu Thonda Nayanar',
+    subtitle:'He Who Served Through Sacred Signs',
+    sarukkam:'Thillaivaalanthana Sarukkam · II',
+    virtues:['Attentive Service','Reading the Lord\'s Will','Devoted Alertness'],
+    body:`<p class="dropcap"><strong>Tiru Kurippu Thonda Nayanar</strong> — whose name means "the devotee who serves by reading sacred signs" — devoted his life to a particularly refined form of service: attending to the subtle indications and expressions of the Lord's devotees, serving not what was asked but what was needed, often before the need was spoken.</p>
+    <p>This Nayanar's devotion was expressed through a sustained, attentive alertness — a quality of presence that noticed the small details of a devotee's condition and responded with immediate, appropriate care. In the tradition's understanding, such attentiveness to the Lord's devotees is itself a form of attentiveness to the Lord.</p>
+    <p>His service was quiet and continuous — not the dramatic sacrifice of wealth or the heroic act of a single supreme moment, but the sustained, day-by-day offering of careful, thoughtful attention to those who bore the marks of the Lord's devotion. In this sustained attentiveness, he found a completeness of worship that needed no dramatic gesture to validate it.</p>
+    <p class="verse-box">"To serve a devotee of the Lord with complete attention — seeing not just what is asked but what is needed, not just the surface but the heart — is to practice the Lord's own infinite attentiveness toward all beings."</p>
+    <p>Through this life of devoted attention — reading the sacred signs, serving before being asked, attending to the subtle needs of those who served the Lord — Tiru Kurippu Thonda Nayanar attained liberation. His story reminds us that the quiet, sustained form of devotion is no less glorious than the dramatic — and that the Lord who sees all things sees also the beauty of a life lived in careful, loving attention to others.</p>`
+  }
+];
+
+const ALL_63 = [
+  ['I–II','Thirumalai & Thillaivaalanthana',[
+    'Sundaramurthi Nayanar','Tiru Neelakanta Nayanar','Iyarpahai Nayanar','Ilayankudi Mara Nayanar','Meiporul Nayanar',
+    'Viralminda Nayanar','Amaraneedi Nayanar','Eripatha Nayanar','Enadinatha Nayanar','Kannappa Nayanar',
+    'Kungiliya Kalaya Nayanar','Manakanchara Nayanar','Arivattaya Nayanar','Anaya Nayanar','Murthi Nayanar',
+    'Muruga Nayanar','Rudra Pasupathi Nayanar','Tiru Nalai Povar Nayanar (Nandanar)','Tiru Kurippu Thonda Nayanar'
+  ]],
+  ['III–V','Ilaimalintha, Mummaiyaal & Thirunindra',[
+    'Thirugnana Sambandar','Appar (Thirunavukkarasar)','Siruthondar Nayanar','Cheraman Perumal Nayanar',
+    'Apootha Nayanar','Karaikkal Ammaiyar','Kaliya Nayanar','Kanampulla Nayanar','Kazharsinga Nayanar',
+    'Koccenga Chola Nayanar','Poosal Nayanar'
+  ]],
+  ['VI–VIII','Vambara, Varkonda & Poiyadimai',[
+    'Thayanar','Eyarkon Kalikkama Nayanar','Poosalar Nayanar','Mangayarkkarasiyar','Vayilar Nayanar',
+    'Munayaduvar Nayanar','Saakkiya Nayanar','Sirappuli Nayanar','Kacchiyappa Sivachariyar','Nesa Nayanar'
+  ]],
+  ['IX–XI','Karaikkandan, Kadal Sooltha & Pattharai',[
+    'Kootruva Nayanar','Pugazhchola Nayanar','Naminandi Adigal Nayanar','Eyarpahai Nayanar','Kaduveli Siddhar',
+    'Selva Nayanar','Kurumba Nayanar','Thisainayaka Nayanar','Nara Nayanar','Kalarcinga Nayanar'
+  ]],
+  ['XII–XIII','Maniiyaseer & Vellanai',[
+    'Athipatta Nayanar','Pugazhthunai Nayanar','Kolli Nayanar','Nithilan Nayanar','Thiru Alavai Nayanar',
+    'Thaduthal Unda Nayanar','Natami Nayanar','Rathna Soman','Gananasambandar','Sekkizhar (the chronicler)'
+  ]],
+];
+
+/* ====================================================
+   BUILD DYNAMIC PAGES 4–22
+   ==================================================== */
+function buildChapterPage(ch, total) {
+  const pg = document.createElement('div');
+  pg.className = 'page';
+  pg.id = `page-${ch.pageIdx}`;
+  const prev = ch.pageIdx - 1;
+  const next = ch.pageIdx + 1;
+  const prevLabel = ch.pageIdx === 4 ? 'The Thirteen Sarukkams' : `${ch.num - 1} · ${CHAPTERS[ch.num - 2].title}`;
+  const nextLabel = ch.pageIdx === 22 ? 'Gallery of All 63 Saints' : `${ch.num + 1} · ${CHAPTERS[ch.num].title}`;
+  pg.innerHTML = `
+    <div class="book-page">
+      <div class="inner-border"></div>
+      <div class="ch-ornament">✦ ❀ ✦</div>
+      <span class="ch-num">Chapter ${ch.num} of 63</span>
+      <h1 class="ch-title">${ch.title}</h1>
+      <p class="ch-subtitle">${ch.subtitle}</p>
+      <span class="sarukkam-badge">${ch.sarukkam}</span>
+      <div class="virtue-tags">${ch.virtues.map(v=>`<span class="virtue">${v}</span>`).join('')}</div>
+      <div class="ch-rule"><span class="ch-rule-icon">❀</span></div>
+      <div class="ch-body">${ch.body}</div>
+      <div class="ch-rule" style="margin-top:24px"><span class="ch-rule-icon">✦</span></div>
+      <p style="text-align:center;font-family:'Cinzel',serif;font-size:.78rem;color:var(--stone);letter-spacing:.14em">OM NAMAH SHIVAYA</p>
+    </div>
+    <div class="nav-bar">
+      <button class="nav-btn" onclick="nav(${prev})">‹ Previous</button>
+      <span class="nav-info">Page ${ch.pageIdx + 1} of 25</span>
+      <button class="nav-btn" onclick="nav(${next})">Next ›</button>
+    </div>
+  `;
+  return pg;
+}
+
+/* ====================================================
+   BUILD SARUKKAM LIST (page 3)
+   ==================================================== */
+function buildSarukkamList() {
+  const el = document.getElementById('sarukkam-list');
+  SARUKKAMS.forEach((s,i) => {
+    el.innerHTML += `
+      <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid var(--parchment-d)">
+        <span style="font-family:'Cinzel Decorative',serif;font-size:1.4rem;color:rgba(197,146,42,.28);min-width:42px;flex-shrink:0">${s.num}</span>
+        <div>
+          <strong style="font-family:'Cinzel',serif;color:var(--crimson);font-size:.88rem">${s.name}</strong>
+          <p style="font-size:.82rem;color:var(--stone);margin-top:2px;font-style:italic;line-height:1.45">${s.desc}</p>
+        </div>
+      </div>`;
+  });
+}
+
+/* ====================================================
+   BUILD TOC SAINTS LIST (page 2)
+   ==================================================== */
+function buildTocList() {
+  const el = document.getElementById('toc-saints-list');
+  let pgNum = 1;
+  CHAPTERS.forEach(ch => {
+    el.innerHTML += `
+      <div class="toc-row" onclick="nav(${ch.pageIdx})">
+        <span class="toc-row-n">${ch.num}.</span>
+        <span class="toc-row-name">${ch.title}</span>
+        <span class="toc-row-dots"></span>
+        <span class="toc-row-pg">${ch.pageIdx * 2 - 3}</span>
+      </div>`;
+  });
+}
+
+/* ====================================================
+   BUILD GALLERY (page 23)
+   ==================================================== */
+function buildGallery() {
+  const el = document.getElementById('gallery-grid');
+  let num = 1;
+  ALL_63.forEach(group => {
+    let html = `<div style="break-inside:avoid;margin-bottom:16px">
+      <div style="font-family:'Cinzel',serif;font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--parchment-d);margin-bottom:6px;padding-bottom:4px">
+        Sarukkam ${group[0]} · ${group[1]}
+      </div>`;
+    group[2].forEach(name => {
+      html += `<div style="padding:2px 0;color:var(--ink-l)">
+        <span style="color:var(--stone-l);font-family:'Cinzel',serif;font-size:.68rem;margin-right:7px">${num++}.</span>${name}
+      </div>`;
+    });
+    html += `</div>`;
+    el.innerHTML += html;
+  });
+}
+
+/* ====================================================
+   NAVIGATION
+   ==================================================== */
+const TOTAL = 25;
+let current = 0;
+
+function nav(idx) {
+  if (idx < 0 || idx >= TOTAL) return;
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(p => p.classList.remove('active'));
+  const target = document.getElementById(`page-${idx}`);
+  if (target) {
+    target.classList.add('active');
+    current = idx;
+    window.scrollTo({top:0,behavior:'smooth'});
+    updateProgress();
+    updateSidebarActive();
+  }
+}
+
+function updateProgress() {
+  const pct = ((current + 1) / TOTAL) * 100;
+  document.getElementById('pgfill').style.width = pct + '%';
+}
+
+function updateSidebarActive() {
+  document.querySelectorAll('#toc-nav a').forEach((a, i) => {
+    a.classList.remove('active');
+    if (i === current) a.classList.add('active');
+  });
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+/* keyboard navigation */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nav(current + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   nav(current - 1);
+});
+
+/* scroll-to-top button */
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('stbtn');
+  btn.classList.toggle('vis', window.scrollY > 300);
+});
+
+/* close sidebar on outside click (mobile) */
+document.getElementById('main').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+});
+
+/* ====================================================
+   INIT
+   ==================================================== */
+(function init() {
+  const main = document.getElementById('main');
+
+  // Insert chapter pages before page-23
+  const before = document.getElementById('page-23');
+  CHAPTERS.forEach(ch => {
+    const node = buildChapterPage(ch, TOTAL);
+    main.insertBefore(node, before);
+  });
+
+  buildSarukkamList();
+  buildTocList();
+  buildGallery();
+  updateProgress();
+  updateSidebarActive();
+})();
+</script>
+</body>
+</html>
